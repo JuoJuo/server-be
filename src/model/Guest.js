@@ -35,12 +35,19 @@ const o1 = new Order({ orderTime: new Date(), mealTime: new Date('2020/09/15'), 
 const o2 = new Order({ orderTime: new Date(), mealTime: new Date('2020/09/16'), wayOfTakingMeals: '自提2', status: '制作中2'});
 
 async function go() {
-  await g1.save();
+  // await g1.save();
+  //
+  // await o1.save();
+  // await o2.save();
 
-  await o1.save();
-  await o2.save();
+  const o1 = await Order.findById('5f5b74c10e405307d8ec64b4');
+  const o2 = await Order.findById('5f5b74c10e405307d8ec64b5');
+  const doc = await Guest.findById('5f5b74c10e405307d8ec64b3');
+  console.log(doc, o1.id, o2.id);
+  const t = await doc.update({ orders: [ o1.id, o2.id ] });
+  // console.log(t);
 
-  await Guest.findOneAndUpdate({ id: g1.id }, { orders: [ o1.id, o2.id ] });
+  //{ orders: [ o1.id, o2.id ] }
 
 
 
