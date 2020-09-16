@@ -5,6 +5,7 @@ const GuestSchema = new Schema({
   phone: String,
   email: String,
   password: String,
+  type: String,
   orders: [
     {
       type: Schema.Types.ObjectId,

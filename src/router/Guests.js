@@ -1,5 +1,5 @@
 const express = require('express');
-const dao = require('../dao/Guest1');
+const dao = require('../dao/Guests');
 const guestRouter = express.Router();
 
 guestRouter.get('/guest', function (req, res) {

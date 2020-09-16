@@ -3,13 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require("express-session");
 
-app.use(session({ secret: 'mypwd~~' }));
+app.use(session({ secret: '0084A32228A94AC63F990E7443B49E28' }));
 app.use(bodyParser.json());
 
 const waiterRouter = require('./router/Waiter');
 const managerRouter = require('./router/Manager');
 const orderRouter = require('./router/Order');
-const guestRouter = require('./router/Guest1');
+const guestRouter = require('./router/Guests');
 
 app.use('/waiter', waiterRouter);
 app.use('/manager', managerRouter);

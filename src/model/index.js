@@ -1,7 +1,7 @@
-const GuestSchema = require('./Guest');
+const GuestSchema = require('./Guests');
 const OrderSchema = require('./Order');
 const WaiterSchema = require('./Waiter');
-const ManagerSchema = require('./Manager');
+const ManagerSchema = require('./Goods');
 const connection = require('./connection');
 
 const Guest = connection.model('Guest', GuestSchema);
