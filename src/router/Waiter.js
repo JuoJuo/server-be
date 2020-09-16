@@ -2,19 +2,24 @@ const express = require('express');
 const dao = require('../dao/Waiter');
 const waiterRouter = express.Router();
 
-waiterRouter.get('/waiter', function (req, res) {
-  res.send('Hello World!');
+waiterRouter.get('/waiter',async function (req, res) {
+  const { pageNum, pageSize } = req.query;
+  const data = await dao.getWaiter(pageNum, pageSize);
+  res.send(data);
 });
 
-waiterRouter.post('/waiter', function (req, res) {
+waiterRouter.post('/waiter',async function (req, res) {
+  await dao.postWaiter(req.body);
   res.send('Got a POST request');
 });
 
-waiterRouter.put('/waiter', function (req, res) {
+waiterRouter.put('/waiter',async function (req, res) {
+  await dao.putWaiter(req.body);
   res.send('Got a PUT request at /user');
 });
 
-waiterRouter.delete('/waiter', function (req, res) {
+waiterRouter.delete('/waiter',async function (req, res) {
+  await dao.deleteWaiter(req.body);
   res.send('Got a DELETE request at /user');
 });
 

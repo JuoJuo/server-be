@@ -1,22 +1,24 @@
-const { Goods } = require('./model');
+const { Goods } = require('../model');
 
-async function getGoods(pageNum, pageSize) {
-  await Goods
+async function getGoods(pageNum = 1, pageSize = 5) {
+  return await Goods
     .find()
     .skip((pageNum - 1) * pageSize)
     .limit(pageSize);
 }
 
 async function postGoods(g) {
-  await new Goods(g).save();
+  return await new Goods(g).save();
 }
 
-async function putGoods(id, obj) {
- await Goods.update({ id }, obj);
+async function putGoods(obj) {
+  const _id = obj._id;
+  delete obj._id;
+  return await Goods.updateOne({ _id }, obj);
 }
 
-async function deleteGoods(id) {
-  await Goods.remove({ id });
+async function deleteGoods({ _id }) {
+  return await Goods.remove({ _id });
 }
 
 module.exports = {

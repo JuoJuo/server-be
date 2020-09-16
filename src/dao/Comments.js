@@ -1,8 +1,9 @@
-const { Comments } = require('./Comments');
+const { Comments } = require('../model');
 
-async function getComments(userId, goodsId) {
-  await Comments
-    .find()
+async function getCommentsByGoods(goods, pageNum = 1, pageSize = 5) {
+  return await Comments
+    .find({ goods })
+    .populate('guest')
     .skip((pageNum - 1) * pageSize)
     .limit(pageSize);
 }
@@ -11,17 +12,20 @@ async function postComments(g) {
   await new Comments(g).save();
 }
 
-async function putComments(id, obj) {
- await Comments.update({ id }, obj);
+async function putComments(obj) {
+  const _id = obj._id;
+  delete obj._id;
+
+  return await Comments.updateOne({ _id }, obj);
 }
 
-async function deleteComments(id) {
-  await Comments.remove({ id });
+async function deleteComments({ _id }) {
+  return await Comments.remove({ _id });
 }
 
 module.exports = {
-  getComments,
   postComments,
   putComments,
   deleteComments,
+  getCommentsByGoods,
 };

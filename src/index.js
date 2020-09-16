@@ -7,15 +7,17 @@ app.use(session({ secret: '0084A32228A94AC63F990E7443B49E28' }));
 app.use(bodyParser.json());
 
 const waiterRouter = require('./router/Waiter');
-const managerRouter = require('./router/Manager');
+const goodsRouter = require('./router/Goods');
 const orderRouter = require('./router/Order');
 const guestRouter = require('./router/Guests');
+const commentsRouter = require('./router/Comments');
 
-app.use('/waiter', waiterRouter);
-app.use('/manager', managerRouter);
-app.use('/order', orderRouter);
-app.use('/guest', guestRouter);
+app.use(waiterRouter);
+app.use(goodsRouter);
+app.use(orderRouter);
+app.use(guestRouter);
+app.use(commentsRouter);
 
 app.listen(3023, () => {
-  console.log('server start success');
+  console.log('http://localhost:3023');
 });

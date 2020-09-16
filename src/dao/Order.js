@@ -1,22 +1,25 @@
-const { Order } = require('./model');
+const { Order } = require('../model');
 
-async function getOrder(pageNum, pageSize) {
-  await Order
+async function getOrder(pageNum = 1, pageSize = 5) {
+  return await Order
     .find()
     .skip((pageNum - 1) * pageSize)
     .limit(pageSize);
 }
 
 async function postOrder(g) {
-  await new Order(g).save();
+  return await new Order(g).save();
 }
 
-async function putOrder(id, obj) {
- await Order.update({ id }, obj);
+async function putOrder(obj) {
+  const _id = obj._id;
+  delete obj._id;
+
+  return await Order.updateOne({ _id }, obj);
 }
 
-async function deleteOrder(id) {
-  await Order.remove({ id });
+async function deleteOrder({ _id }) {
+  return await Order.remove({ _id });
 }
 
 module.exports = {
