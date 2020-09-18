@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const GuestSchema = new Schema({
   phone: String,
+  username: String,
   email: String,
   password: String,
   type: String,

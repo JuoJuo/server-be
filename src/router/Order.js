@@ -9,18 +9,18 @@ orderRouter.get('/order',async function (req, res) {
 });
 
 orderRouter.post('/order',async function (req, res) {
-  await dao.postOrder(req.body);
-  res.send('Got a POST request');
+  const doc = await dao.postOrder(req.body);
+  res.send(doc);
 });
 
 orderRouter.put('/order',async function (req, res) {
-  await dao.putOrder(req.body);
-  res.send('Got a PUT request at /user');
+  const doc = await dao.putOrder(req.body);
+  res.send(doc);
 });
 
 orderRouter.delete('/order',async function (req, res) {
-  await dao.deleteOrder(req.body);
-  res.send('Got a DELETE request at /user');
+  const doc = await dao.deleteOrder(req.body);
+  res.send(doc);
 });
 
 module.exports = orderRouter;

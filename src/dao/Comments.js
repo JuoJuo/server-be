@@ -8,6 +8,15 @@ async function getCommentsByGoods(goods, pageNum = 1, pageSize = 5) {
     .limit(pageSize);
 }
 
+async function getComments(pageNum = 1, pageSize = 5) {
+  return await Comments
+    .find()
+    .populate('guest')
+    .populate('goods')
+    .skip((pageNum - 1) * pageSize)
+    .limit(pageSize);
+}
+
 async function postComments(g) {
   await new Comments(g).save();
 }
@@ -27,5 +36,6 @@ module.exports = {
   postComments,
   putComments,
   deleteComments,
+  getComments,
   getCommentsByGoods,
 };

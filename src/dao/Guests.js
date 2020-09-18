@@ -9,8 +9,29 @@ async function getGuest(pageNum = 1, pageSize = 5) {
   return docs;
 }
 
+async function findOne({phone, password}) {
+  const docs = await Guest
+    .find({ phone, password });
+  return docs;
+}
+
+async function resetPassword({phone, password}) {
+  const rs = await Guest.find({ phone });
+  if (rs.length === 0) {
+    return 'sorry, there is no this account';
+  }
+
+  return await rs[0].updateOne({ password });
+}
+
 async function postGuest(g) {
-  return await new Guest(g).save();
+  const docs = await Guest.find({ phone: g.phone });
+
+  if (docs.length === 0) {
+    return await new Guest(g).save();
+  } else {
+    return 1000;
+  }
 }
 
 async function putGuest(obj) {
@@ -28,4 +49,6 @@ module.exports = {
   postGuest,
   putGuest,
   deleteGuest,
+  findOne,
+  resetPassword,
 };

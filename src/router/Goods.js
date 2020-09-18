@@ -9,18 +9,18 @@ managerRouter.get('/goods',async function (req, res) {
 });
 
 managerRouter.post('/goods',async function (req, res) {
-  await dao.postGoods();
-  res.send('Got a POST request');
+  const doc = await dao.postGoods(req.body);
+  res.send(doc);
 });
 
 managerRouter.put('/goods',async function (req, res) {
-  await dao.putGoods();
-  res.send('Got a PUT request at /user');
+  const doc = await dao.putGoods(req.body);
+  res.send(doc);
 });
 
 managerRouter.delete('/goods',async function (req, res) {
-  await dao.deleteGoods();
-  res.send('Got a DELETE request at /user');
+  const doc = await dao.deleteGoods(req.body);
+  res.send(doc);
 });
 
 module.exports = managerRouter;

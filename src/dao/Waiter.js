@@ -1,6 +1,6 @@
 const { Waiter } = require('../model');
 
-async function getWaiter(pageNum = 1, pageSize = 5) {
+async function getWaiter(pageNum = 1, pageSize = 20) {
   return await Waiter
     .find()
     .skip((pageNum - 1) * pageSize)

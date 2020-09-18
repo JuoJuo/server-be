@@ -9,18 +9,18 @@ waiterRouter.get('/waiter',async function (req, res) {
 });
 
 waiterRouter.post('/waiter',async function (req, res) {
-  await dao.postWaiter(req.body);
-  res.send('Got a POST request');
+  const doc = await dao.postWaiter(req.body);
+  res.send(doc);
 });
 
 waiterRouter.put('/waiter',async function (req, res) {
-  await dao.putWaiter(req.body);
-  res.send('Got a PUT request at /user');
+  const doc = await dao.putWaiter(req.body);
+  res.send(doc);
 });
 
 waiterRouter.delete('/waiter',async function (req, res) {
-  await dao.deleteWaiter(req.body);
-  res.send('Got a DELETE request at /user');
+  const doc = await dao.deleteWaiter(req.body);
+  res.send(doc);
 });
 
 module.exports = waiterRouter;
