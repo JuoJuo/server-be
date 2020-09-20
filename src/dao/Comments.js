@@ -29,7 +29,7 @@ async function putComments(obj) {
 }
 
 async function deleteComments({ _id }) {
-  return await Comments.remove({ _id });
+  return await Comments.deleteOne({ _id });
 }
 
 module.exports = {

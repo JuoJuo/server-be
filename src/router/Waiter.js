@@ -23,4 +23,17 @@ waiterRouter.delete('/waiter',async function (req, res) {
   res.send(doc);
 });
 
+waiterRouter.post('/loginWaiter',async function (req, res) {
+  const rs = await dao.findOne(req.body);
+
+  if (rs.length !== 0) {
+    req.session.loginId = rs[0]._id;
+    req.session.cookie.maxAge = 2 * 60 * 60 * 1000;
+
+    res.status(200).send({code: 1, data: rs, msg: 'success'});
+  } else {
+    res.status(500).send({code: -1, msg: 'userName or password wrong!'});
+  }
+});
+
 module.exports = waiterRouter;

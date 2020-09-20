@@ -19,7 +19,12 @@ async function putWaiter(obj) {
 }
 
 async function deleteWaiter({ _id }) {
-  return await Waiter.remove({ _id });
+  return await Waiter.deleteOne({ _id });
+}
+
+async function findOne({ uname: phone, pwd: password }) {
+  const docs = await Waiter.find({ phone, password });
+  return docs;
 }
 
 module.exports = {
@@ -27,4 +32,5 @@ module.exports = {
   postWaiter,
   putWaiter,
   deleteWaiter,
+  findOne,
 };

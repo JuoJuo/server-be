@@ -18,7 +18,7 @@ async function putGoods(obj) {
 }
 
 async function deleteGoods({ _id }) {
-  return await Goods.remove({ _id });
+  return await Goods.deleteOne({ _id });
 }
 
 module.exports = {

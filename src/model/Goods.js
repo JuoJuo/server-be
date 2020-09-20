@@ -6,6 +6,7 @@ const GoodsSchema = new Schema({
   desc: String,
   price: String,
   type: String,
+  url: String,
 });
 
 module.exports = GoodsSchema;

@@ -9,8 +9,16 @@ guestRouter.get('/guest',async function (req, res) {
 });
 
 guestRouter.post('/guest/login',async function (req, res) {
-  const data = await dao.findOne(req.body);
-  res.send(data);
+  const rs = await dao.findOne(req.body);
+
+  if (rs.length !== 0) {
+    req.session.guestId = rs[0]._id;
+    req.session.cookie.maxAge = 2 * 60 * 60 * 1000;
+
+    res.status(200).send(rs);
+  } else {
+    res.status(500).send({code: -1, msg: 'UserName or Password wrong!'});
+  }
 });
 
 guestRouter.put('/guest/resetPassword',async function (req, res) {

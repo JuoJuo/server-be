@@ -41,7 +41,7 @@ async function putGuest(obj) {
 }
 
 async function deleteGuest({ _id }) {
-  return await Guest.remove({ _id });
+  return await Guest.deleteOne({ _id });
 }
 
 module.exports = {

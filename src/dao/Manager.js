@@ -1,8 +1,8 @@
 const { Manager } = require('../model');
 
-async function findOne({uname, password}) {
+async function findOne({uname, pwd}) {
   const docs = await Manager
-    .find({ uname, password });
+    .find({ uname, password: pwd });
   return docs;
 }
 
