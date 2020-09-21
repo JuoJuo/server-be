@@ -5,19 +5,18 @@ const session = require("express-session");
 const multer = require("multer");
 const path = require("path");
 
-app.use(session({ secret: '0084A32228A94AC63F990E7443B49E28' }));
+app.use(session({ secret: '0084A32228A94AC63F990E7443B49E28002' }));
 app.use(bodyParser.json());
 
-app.post('/logoutGuest', (req, res) => {
-  req.session.guestId = 0;
+app.post('/logout', (req, res) => {
+  req.session.loginId = 0;
   req.session.cookie.maxAge = 0;
   res.status(200).send({code: 1, msg: 'success'});
 });
 
 app.use('*', (req, res, next) => {
-  if (req.session.guestId || req.originalUrl === '/guest/login' ||
-    req.originalUrl === '/guest/resetPassword' || (req.originalUrl === '/guest' && req.method === 'POST')
-  ) {
+  if (req.session.loginId || req.originalUrl === '/loginManager' ||
+    req.originalUrl === '/loginWaiter') {
     next();
   } else {
     res.status(401).send({code: -1, msg: 'please login first'});
@@ -58,7 +57,8 @@ app.use(guestRouter);
 app.use(commentsRouter);
 app.use(managerRouter);
 
-const port = 3023;
-app.listen(port, () => {
+const port = 3024;
+
+app.listen(3024, () => {
   console.log(`http://localhost:${port}`);
 });
