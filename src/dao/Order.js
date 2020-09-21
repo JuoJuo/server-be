@@ -9,7 +9,22 @@ async function getOrder(pageNum = 1, pageSize = 5) {
     .limit(pageSize);
 }
 
+function getTxt(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
 async function postOrder(arrOrders) {
+  const allOrder = await Order.find();
+  const times = allOrder.map(({ mealTime }) => getTxt(new Date(mealTime)));
+  const clientTimes = arrOrders.map(({ mealTime }) => getTxt(new Date(mealTime)));
+
+  for (let i = 0; i < times.length; i++) {
+    const rs = clientTimes.filter(timeStr => timeStr === times[i]);
+    if (rs.length >= 1) {
+      return { msg: 'sorry, mealTime conflict with other customer， please change mealTime time ！', code: '-1' }
+    }
+  }
+
   for (let i = 0; i < arrOrders.length; i++) {
     await new Order(arrOrders[i]).save();
   }
