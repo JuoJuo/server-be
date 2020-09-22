@@ -8,15 +8,15 @@ const path = require("path");
 app.use(session({ secret: '0084A32228A94AC63F990E7443B49E28002' }));
 app.use(bodyParser.json());
 
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
   req.session.loginId = 0;
   req.session.cookie.maxAge = 0;
   res.status(200).send({code: 1, msg: 'success'});
 });
 
 app.use('*', (req, res, next) => {
-  if (req.session.loginId || req.originalUrl === '/loginManager' ||
-    req.originalUrl === '/loginWaiter') {
+  if (req.session.loginId || req.originalUrl === '/api/loginManager' ||
+    req.originalUrl === '/api/loginWaiter') {
     next();
   } else {
     res.status(401).send({code: -1, msg: 'please login first'});
@@ -41,7 +41,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 app.use(express.static(path.join(__dirname, "public")));
 app.post(
-  "/goods/create",
+  "/api/goods/create",
   upload.single("avatar"),
   (req, res, _next) => {
     const p = `pic/${req.file.filename}`;
@@ -50,12 +50,12 @@ app.post(
 );
 // picture upload first end
 
-app.use(waiterRouter);
-app.use(goodsRouter);
-app.use(orderRouter);
-app.use(guestRouter);
-app.use(commentsRouter);
-app.use(managerRouter);
+app.use('/api', waiterRouter);
+app.use('/api', goodsRouter);
+app.use('/api', orderRouter);
+app.use('/api', guestRouter);
+app.use('/api', commentsRouter);
+app.use('/api', managerRouter);
 
 const port = 3024;
 

@@ -8,15 +8,15 @@ const path = require("path");
 app.use(session({ secret: '0084A32228A94AC63F990E7443B49E28' }));
 app.use(bodyParser.json());
 
-app.post('/logoutGuest', (req, res) => {
+app.post('/api/logoutGuest', (req, res) => {
   req.session.guestId = 0;
   req.session.cookie.maxAge = 0;
   res.status(200).send({code: 1, msg: 'success'});
 });
 
 app.use('*', (req, res, next) => {
-  if (req.session.guestId || req.originalUrl === '/guest/login' ||
-    req.originalUrl === '/guest/resetPassword' || (req.originalUrl === '/guest' && req.method === 'POST')
+  if (req.session.guestId || req.originalUrl === '/api/guest/login' ||
+    req.originalUrl === '/api/guest/resetPassword' || (req.originalUrl === '/api/guest' && req.method === 'POST')
   ) {
     next();
   } else {
@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 app.use(express.static(path.join(__dirname, "public")));
 app.post(
-  "/goods/create",
+  "/api/goods/create",
   upload.single("avatar"),
   (req, res, _next) => {
     const p = `pic/${req.file.filename}`;
@@ -51,12 +51,12 @@ app.post(
 );
 // picture upload first end
 
-app.use(waiterRouter);
-app.use(goodsRouter);
-app.use(orderRouter);
-app.use(guestRouter);
-app.use(commentsRouter);
-app.use(managerRouter);
+app.use('/api', waiterRouter);
+app.use('/api', goodsRouter);
+app.use('/api', orderRouter);
+app.use('/api', guestRouter);
+app.use('/api', commentsRouter);
+app.use('/api', managerRouter);
 
 const port = 3023;
 app.listen(port, () => {
