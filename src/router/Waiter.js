@@ -30,7 +30,7 @@ waiterRouter.post('/loginWaiter',async function (req, res) {
     req.session.loginId = rs[0]._id;
     req.session.cookie.maxAge = 2 * 60 * 60 * 1000;
 
-    res.status(200).send({code: 1, data: rs, msg: 'success'});
+    res.status(200).send({code: 1, data: rs[0], msg: 'success'});
   } else {
     res.status(500).send({code: -1, msg: 'userName or password wrong!'});
   }
