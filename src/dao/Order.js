@@ -1,8 +1,8 @@
 const { Order } = require('../model');
 
-async function getOrder(pageNum = 1, pageSize = 5) {
+async function getOrder(pageNum = 1, pageSize = 1000, condition) {
   return await Order
-    .find()
+    .find(condition)
     .populate('guest')
     .populate('goods')
     .skip((pageNum - 1) * pageSize)

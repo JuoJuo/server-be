@@ -1,6 +1,6 @@
 const { Goods } = require('../model');
 
-async function getGoods(pageNum = 1, pageSize = 20) {
+async function getGoods(pageNum = 1, pageSize = 1000) {
   return await Goods
     .find()
     .skip((pageNum - 1) * pageSize)

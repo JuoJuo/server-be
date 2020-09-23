@@ -4,7 +4,7 @@ const orderRouter = express.Router();
 
 orderRouter.get('/order',async function (req, res) {
   const { pageNum, pageSize } = req.query;
-  const data = await dao.getOrder(pageNum, pageSize);
+  const data = await dao.getOrder(pageNum, pageSize, req.query);
   res.send(data);
 });
 

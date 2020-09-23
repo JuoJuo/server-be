@@ -1,6 +1,6 @@
 const { Guest } = require('../model');
 
-async function getGuest(pageNum = 1, pageSize = 5) {
+async function getGuest(pageNum = 1, pageSize = 1000) {
   const docs = await Guest
     .find()
     .skip((pageNum - 1) * pageSize)

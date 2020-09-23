@@ -1,6 +1,6 @@
 const { Comments } = require('../model');
 
-async function getCommentsByGoods(goods, pageNum = 1, pageSize = 5) {
+async function getCommentsByGoods(goods, pageNum = 1, pageSize = 1000) {
   return await Comments
     .find({ goods })
     .populate('guest')
